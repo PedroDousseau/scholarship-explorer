@@ -19,7 +19,7 @@ app.get('/api/scholarships', (async (req, res) => {
 }) as RequestHandler)
 
 app.post('/api/applications', (async (req, res) => {
-  const { scholarshipId } = req.body
+  const { scholarshipId, studentName, studentEmail, message, utm } = req.body
 
   try {
     const scholarship = await prisma.scholarship.findUnique({
@@ -32,7 +32,13 @@ app.post('/api/applications', (async (req, res) => {
 
     const application = await prisma.application.create({
       data: {
-        scholarshipId
+        studentName,
+        studentEmail,
+        message,
+        utm,
+        scholarship: {
+          connect: { id: scholarshipId }
+        }
       },
       include: {
         scholarship: true
