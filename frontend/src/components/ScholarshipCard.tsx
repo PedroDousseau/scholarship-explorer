@@ -3,15 +3,25 @@ import Modal from './Modal';
 import ScholarshipForm from './ScholarshipForm';
 
 export interface ScholarshipCardProps {
+  id: number;
   imgUrl: string;
   title: string;
   description: string;
-  amount: string;
+  amount: number;
   deadline: string;
 }
 
-function ScholarshipCard({ imgUrl, title, description, amount, deadline }: ScholarshipCardProps) {
+function ScholarshipCard({ id, imgUrl, title, description, amount, deadline }: ScholarshipCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
 
   const handleSubmit = (data: any) => {
     console.log('Form submitted:', data);
@@ -32,8 +42,8 @@ function ScholarshipCard({ imgUrl, title, description, amount, deadline }: Schol
           </h2>
           <p className="mb-5">{description}</p>
           <div className="card-actions justify-end">
-            <div className="badge badge-success">${amount}</div>
-            <div className="badge badge-warning">{deadline}</div>
+            <div className="badge badge-success">{formatCurrency(amount)}</div>
+            <div className="badge badge-warning">{new Date(deadline).toLocaleDateString()}</div>
           </div>
           <div className="">
             <button 
@@ -52,6 +62,7 @@ function ScholarshipCard({ imgUrl, title, description, amount, deadline }: Schol
         title={`Apply for ${title}`}
       >
         <ScholarshipForm
+          id={id}
           imgUrl={imgUrl}
           title={title}
           description={description}
