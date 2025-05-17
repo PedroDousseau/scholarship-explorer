@@ -1,10 +1,12 @@
 import { PrismaClient } from '@prisma/client'
 import express, { RequestHandler } from 'express'
+import cors from 'cors'
 
 const prisma = new PrismaClient()
 const app = express()
 const SERVER_PORT = process.env.SERVER_PORT || 3000
 
+app.use(cors())
 app.use(express.json())
 
 app.get('/api/scholarships', (async (req, res) => {
