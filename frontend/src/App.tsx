@@ -2,7 +2,7 @@ function App() {
   return (
     <>
       <div>
-        Scholarship Explorer
+        Scholarship Explorer Home
       </div>
     </>
   )
