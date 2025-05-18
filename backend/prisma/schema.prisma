@@ -27,6 +27,6 @@ model Application {
   studentName String
   studentEmail String
   message String
-  utm String
+  utm Json
   scholarship Scholarship @relation(fields: [scholarshipId], references: [id])
 }
