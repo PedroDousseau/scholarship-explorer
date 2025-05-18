@@ -18,6 +18,22 @@ app.get('/api/scholarships', (async (req, res) => {
   }
 }) as RequestHandler)
 
+app.get('/api/applications', (async (req, res) => {
+  try {
+    const applications = await prisma.application.findMany({
+      include: {
+        scholarship: true
+      },
+      orderBy: {
+        createdAt: 'asc'
+      }
+    })
+    res.json(applications)
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch applications' })
+  }
+}) as RequestHandler)
+
 app.post('/api/applications', (async (req, res) => {
   const { scholarshipId, studentName, studentEmail, message, utm } = req.body
 
