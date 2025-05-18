@@ -33,6 +33,7 @@ function ScholarshipCard({ id, imgUrl, title, description, amount, deadline }: S
       <div className="card-sm bg-neutral-50 shadow-sm rounded-lg text-neutral-950 flex flex-col sm:max-w-80">
         <figure>
           <img
+            className="w-full h-42 object-cover object-center"
             src={imgUrl}
             alt={title} />
         </figure>

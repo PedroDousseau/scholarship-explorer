@@ -50,13 +50,14 @@ function ScholarshipForm({ title, id, onSubmit }: ScholarshipFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const utmParams = sessionStorage.getItem('utmParams') || '';
     
     applyForScholarship({
       scholarshipId: id,
       studentName: formData.get('name') as string,
       studentEmail: formData.get('email') as string,
       message: formData.get('message') as string,
-      utm: 'direct', // TODO: Get this from URL params
+      utm: utmParams,
     });
   };
   
